@@ -5,25 +5,20 @@ use tcod::{Console, KeyCode};
 use tcod::Key::Special;
 
 use dwemthys::game::Game;
-use dwemthys::util::Updates;
-use dwemthys::character::Character;
-use dwemthys::npc::NPC;
-use dwemthys::movement::{RandomMovementComponent, MovementComponent, TcodMovementComponent};
+use dwemthys::actor::Actor;
+use dwemthys::movement::MovementComponent;
 
 
 
 fn main() {
 	let mut game = Game::new();
     
-    let char_mc: Box<TcodMovementComponent> = box MovementComponent::new(game.window_bounds);
-    let mut c = Character::new(40, 25, '@', char_mc);
-
-    let cmc: Box<RandomMovementComponent> = box MovementComponent::new(game.window_bounds);
-    let dmc: Box<RandomMovementComponent> = box MovementComponent::new(game.window_bounds);
+    let mut c = Actor::heroine(game.window_bounds);
     
-    let mut npcs:Vec<Box<Updates>> = vec![
-        box NPC::new(10, 10, 'd', dmc) as Box<Updates>,
-        box NPC::new(40, 25, 'c', cmc) as Box<Updates>
+    let mut npcs:Vec<Box<Actor>> = vec![
+        box Actor::dog(10, 10, game.window_bounds),
+        box Actor::cat(40, 25, game.window_bounds),
+        box Actor::kobold(20, 20, game.window_bounds),
     ];
     
     //render
