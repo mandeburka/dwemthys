@@ -6,6 +6,7 @@ use tcod::Key::Special;
 
 use dwemthys::game::Game;
 use dwemthys::actor::Actor;
+use dwemthys::rendering::WindowComponent;
 use dwemthys::movement::MovementComponent;
 
 
@@ -13,12 +14,12 @@ use dwemthys::movement::MovementComponent;
 fn main() {
 	let mut game = Game::new();
     
-    let mut c = Actor::heroine(game.window_bounds);
+    let mut c = Actor::heroine(game.map_window.get_bounds());
     
     let mut npcs:Vec<Box<Actor>> = vec![
-        box Actor::dog(10, 10, game.window_bounds),
-        box Actor::cat(40, 25, game.window_bounds),
-        box Actor::kobold(20, 20, game.window_bounds),
+        box Actor::dog(10, 10, game.map_window.get_bounds()),
+        box Actor::cat(40, 25, game.map_window.get_bounds()),
+        box Actor::kobold(20, 20, game.map_window.get_bounds()),
     ];
     
     //render
