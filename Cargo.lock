@@ -2,13 +2,13 @@
 name = "dwemthys"
 version = "0.0.1"
 dependencies = [
- "tcod 0.3.0 (git+https://github.com/tomassedovic/tcod-rs.git)",
+ "tcod 0.3.2 (git+https://github.com/tomassedovic/tcod-rs.git)",
 ]
 
 [[package]]
 name = "tcod"
-version = "0.3.0"
-source = "git+https://github.com/tomassedovic/tcod-rs.git#100ec46048d56371c49371f9c33319ef09edfc85"
+version = "0.3.2"
+source = "git+https://github.com/tomassedovic/tcod-rs.git#c5e497112748df6f387f048a74ade1c9c17a86dc"
 dependencies = [
  "tcod-sys 1.5.2 (git+https://github.com/tomassedovic/tcod-rs.git)",
 ]
@@ -16,5 +16,5 @@ dependencies = [
 [[package]]
 name = "tcod-sys"
 version = "1.5.2"
-source = "git+https://github.com/tomassedovic/tcod-rs.git#100ec46048d56371c49371f9c33319ef09edfc85"
+source = "git+https://github.com/tomassedovic/tcod-rs.git#c5e497112748df6f387f048a74ade1c9c17a86dc"
 

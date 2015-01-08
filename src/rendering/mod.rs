@@ -5,8 +5,6 @@ use util::{Point, Bound};
 
 
 pub trait WindowComponent {
-    fn new(Bound)               -> Self;
-
     fn get_bounds(&self)        -> Bound;
     fn get_bg_color(&self)      -> Color;
     fn get_console(&mut self)   -> &mut Console;
@@ -30,8 +28,8 @@ pub struct TcodStatsWindowComponent {
     bounds: Bound
 }
 
-impl WindowComponent for TcodStatsWindowComponent {
-    fn new(bounds: Bound) -> TcodStatsWindowComponent {
+impl TcodStatsWindowComponent {
+    pub fn new(bounds: Bound) -> TcodStatsWindowComponent {
         let height  = bounds.max.y - bounds.min.y + 1;
         let width   = bounds.max.x - bounds.min.x + 1;
         let console = Console::new(width as int, height as int);
@@ -42,6 +40,9 @@ impl WindowComponent for TcodStatsWindowComponent {
             bounds: bounds
         }
     }
+}
+
+impl WindowComponent for TcodStatsWindowComponent {
 
     fn get_bounds(&self) -> Bound { self.bounds }
     fn get_bg_color(&self) -> Color { self.backgrounf_color }
@@ -54,8 +55,8 @@ pub struct TcodInputWindowComponent{
     bounds: Bound
 }
 
-impl WindowComponent for TcodInputWindowComponent {
-    fn new(bounds: Bound) -> TcodInputWindowComponent {
+impl TcodInputWindowComponent {
+    pub fn new(bounds: Bound) -> TcodInputWindowComponent {
         let height  = bounds.max.y - bounds.min.y + 1;
         let width   = bounds.max.x - bounds.min.x + 1;
         let console = Console::new(width as int, height as int);
@@ -66,7 +67,9 @@ impl WindowComponent for TcodInputWindowComponent {
             bounds: bounds
         }
     }
+}
 
+impl WindowComponent for TcodInputWindowComponent {
     fn get_bounds(&self) -> Bound { self.bounds }
     fn get_bg_color(&self) -> Color { self.backgrounf_color }
     fn get_console(&mut self) -> &mut Console { &mut self.console }
@@ -78,8 +81,8 @@ pub struct TcodMessagesWindowComponent{
     bounds: Bound
 }
 
-impl WindowComponent for TcodMessagesWindowComponent {
-    fn new(bounds: Bound) -> TcodMessagesWindowComponent {
+impl TcodMessagesWindowComponent {
+    pub fn new(bounds: Bound) -> TcodMessagesWindowComponent {
         let height  = bounds.max.y - bounds.min.y + 1;
         let width   = bounds.max.x - bounds.min.x + 1;
         let console = Console::new(width as int, height as int);
@@ -90,7 +93,9 @@ impl WindowComponent for TcodMessagesWindowComponent {
             bounds: bounds
         }
     }
+}
 
+impl WindowComponent for TcodMessagesWindowComponent {
     fn get_bounds(&self) -> Bound { self.bounds }
     fn get_bg_color(&self) -> Color { self.backgrounf_color }
     fn get_console(&mut self) -> &mut Console { &mut self.console }
@@ -102,8 +107,8 @@ pub struct TcodMapWindowComponent{
     bounds: Bound
 }
 
-impl WindowComponent for TcodMapWindowComponent {
-    fn new(bounds: Bound) -> TcodMapWindowComponent {
+impl TcodMapWindowComponent {
+    pub fn new(bounds: Bound) -> TcodMapWindowComponent {
         let height  = bounds.max.y - bounds.min.y + 1;
         let width   = bounds.max.x - bounds.min.x + 1;
         let console = Console::new(width as int, height as int);
@@ -114,14 +119,15 @@ impl WindowComponent for TcodMapWindowComponent {
             bounds: bounds
         }
     }
+}
 
+impl WindowComponent for TcodMapWindowComponent {
     fn get_bounds(&self) -> Bound { self.bounds }
     fn get_bg_color(&self) -> Color { self.backgrounf_color }
     fn get_console(&mut self) -> &mut Console { &mut self.console }
 }
 
 pub trait RenderingComponent {
-    fn new(Bound) -> Self;
     fn before_render_new_frame(&mut self);
     fn render_object(&mut self, Point, char);
     fn after_render_new_frame(&mut self);
@@ -133,8 +139,8 @@ pub struct TcodRenderingComponent {
     pub console: Console
 }
 
-impl RenderingComponent for TcodRenderingComponent {
-    fn new(bounds: Bound) -> TcodRenderingComponent {
+impl TcodRenderingComponent {
+    pub fn new(bounds: Bound) -> TcodRenderingComponent {
         let con = Console::init_root(
             (bounds.max.x + 1) as int,
             (bounds.max.y + 1) as int, 
@@ -143,6 +149,9 @@ impl RenderingComponent for TcodRenderingComponent {
         );
         TcodRenderingComponent { console: con }
     }
+}
+
+impl RenderingComponent for TcodRenderingComponent {
     
     fn before_render_new_frame(&mut self) {
         self.console.clear();

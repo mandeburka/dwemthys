@@ -2,12 +2,11 @@ extern crate tcod;
 
 use self::tcod::KeyCode;
 use self::tcod::Key::Special;
-use std::rand::{Rng, task_rng};
+use std::rand::{Rng, thread_rng};
 use util::{Point, Contains, Bound, XPointRelation, YPointRelation, PointEquality};
 use game::Game;
 
 pub trait MovementComponent {
-	fn new(Bound) -> Self;
 	fn update(&self, Point) -> Point;
 }
 
@@ -17,21 +16,23 @@ pub struct RandomMovementComponent {
 
 impl Copy for RandomMovementComponent {}
 
-
-impl MovementComponent for RandomMovementComponent {
-	fn new(bound: Bound) -> RandomMovementComponent {
+impl RandomMovementComponent {
+	pub fn new(bound: Bound) -> RandomMovementComponent {
 		RandomMovementComponent { window_bounds: bound }
 	}
+}
 
+
+impl MovementComponent for RandomMovementComponent {
 	fn update(&self, point: Point) -> Point {
 		let mut offset = Point { x: point.x, y: point.y };
-		let offset_x = task_rng().gen_range(0, 3i32) - 1;
+		let offset_x = thread_rng().gen_range(0, 3i32) - 1;
         match self.window_bounds.contains(offset.offset_x(offset_x)) {
             Contains::DoesContain => offset = offset.offset_x(offset_x),
             Contains::DoesNotContain => { return point; }
         }
 
-        let offset_y = task_rng().gen_range(0, 3i32) - 1;
+        let offset_y = thread_rng().gen_range(0, 3i32) - 1;
         match self.window_bounds.contains(offset.offset_y(offset_y)) {
             Contains::DoesContain => offset = offset.offset_y(offset_y),
             Contains::DoesNotContain => { return point; }
@@ -46,11 +47,13 @@ pub struct TcodMovementComponent {
 
 impl Copy for TcodMovementComponent {}
 
-impl MovementComponent for TcodMovementComponent {
-	fn new(bound: Bound) -> TcodMovementComponent {
+impl TcodMovementComponent {
+	pub fn new(bound: Bound) -> TcodMovementComponent {
 		TcodMovementComponent { window_bounds: bound }
 	}
+}
 
+impl MovementComponent for TcodMovementComponent {
 	fn update(&self, point: Point) -> Point {
 		let mut offset = Point { x: point.x, y: point.y };
 		offset = match Game::get_last_keypress() {
@@ -85,11 +88,13 @@ pub struct AggroMovementComponent {
     window_bounds: Bound
 }
 
-impl MovementComponent for AggroMovementComponent {
-	fn new(bound: Bound) -> AggroMovementComponent {
+impl AggroMovementComponent {
+	pub fn new(bound: Bound) -> AggroMovementComponent {
 		AggroMovementComponent { window_bounds: bound }
 	}
+}
 
+impl MovementComponent for AggroMovementComponent {
 	fn update(&self, point: Point) -> Point {
 		let char_point = Game::get_character_location();
 		let mut offset = Point { x: 0, y: 0 };

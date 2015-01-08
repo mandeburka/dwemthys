@@ -29,11 +29,11 @@ impl<'a> Game<'a> {
 		let message_bounds = Bound::new(0, 53, 99, 61);
 		let map_bounds 	   = Bound::new(0,  0, 78, 49);
 		
-		let rc: Box<TcodRenderingComponent> = box RenderingComponent::new(total_bounds);
-		let sw: Box<TcodStatsWindowComponent> = box WindowComponent::new(stats_bounds);
-		let iw: Box<TcodInputWindowComponent> = box WindowComponent::new(input_bounds);
-		let mw: Box<TcodMessagesWindowComponent> = box WindowComponent::new(message_bounds);
-		let maw: Box<TcodMapWindowComponent> = box WindowComponent::new(map_bounds);
+		let rc = box TcodRenderingComponent::new(total_bounds);
+		let sw = box TcodStatsWindowComponent::new(stats_bounds);
+		let iw = box TcodInputWindowComponent::new(input_bounds);
+		let mw = box TcodMessagesWindowComponent::new(message_bounds);
+		let maw = box TcodMapWindowComponent::new(map_bounds);
 
 		Game {
 			exit: false,
